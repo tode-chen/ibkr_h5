@@ -1,0 +1,84 @@
+.page-title-wrap {
+    display: flex;
+    justify-content: flex-start;
+    margin: 0 auto;
+    width: 100%;
+    height: 64rpx;
+    line-height: 64rpx;
+    color: #333;
+
+    .icon-logo {
+        border-radius: 50%;
+        width: 64rpx;
+        height: 64rpx;
+        color: #fff;
+        text-align: center;
+        background: #037fef;
+    }
+
+    .page-title {
+        flex: 1;
+        margin-left: 26rpx;
+        min-width: 0;
+        font-size: 42rpx;
+        font-weight: 600;
+        overflow: hidden;
+    }
+}
+
+.k-cells {
+    &.reg-cells {
+        .k-cell {
+            &:after {
+                background: #63a2c9;
+            }
+
+            .k-label {
+                padding-right: 30rpx;
+                min-width: initial;
+            }
+
+            .yzm {
+                color: #037fef;
+            }
+
+            .k-cell__ft {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                width: initial;
+
+                .icon {
+                    padding: 0 30rpx;
+                    width: 32rpx;
+                    height: 32rpx;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    background-size: 32rpx 32rpx;
+
+                    &:active {
+                        opacity: 0.5;
+                    }
+
+                    &.icon-close {
+                        background-image: url('@/static/icon-close.png');
+                    }
+
+                    &.icon-eye-close {
+                        width: 44rpx;
+                        height: 44rpx;
+                        background-image: url('@/static/icon-eye-close.png');
+                        background-size: 44rpx 44rpx;
+                    }
+
+                    &.icon-eye-open {
+                        width: 44rpx;
+                        height: 44rpx;
+                        background-image: url('@/static/icon-eye-open.png');
+                        background-size: 44rpx 44rpx;
+                    }
+                }
+            }
+        }
+    }
+}

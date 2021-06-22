@@ -12,15 +12,16 @@ envKey = '' // prod,test,dev,ct
 // 环境配置
 envSet = {
     'prod': {
-        baseDomain: "http://47.119.202.153",
+        // baseDomain: "http://47.119.202.153",
+        baseDomain: "https://api.pioneerbrokersnz.com",
         apiAffix: '', // api地址的词缀，apiPath=baseDomain+apiAffix，如https://www.gswesttravel.cn/api
     },
     'test': {
-        baseDomain: "http://47.119.202.153",
+        baseDomain: "https://api.pioneerbrokersnz.com",
         apiAffix: '',
     },
     'dev': {
-        baseDomain: "http://47.119.202.153",
+        baseDomain: "https://api.pioneerbrokersnz.com",
         apiAffix: '',
     },
     // 'local': { // http://v.gswesttravel.cn/tour/api
@@ -88,6 +89,7 @@ Object.assign(Vue.prototype, {
     $envVersion: envVersion, // 当前环境版本
     $apiPath: apiPath, // 接口地址
     basePath: apiPath, // 接口地址
+    $baseDomain: baseDomain, // 接口地址
     $envKey: envKey, // 环境变量控制
     $isBrowser: isBrowser,
     $ossImgPath: 'https://www.ly3618.com/remote_static/tourMoJ/asset', // 图片路径

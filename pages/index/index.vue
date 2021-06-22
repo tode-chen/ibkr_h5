@@ -6,6 +6,8 @@
         </view>
         <view class="button-wrap">
             <button @tap="navigateTo('reg_tel')">账户注册</button>
+            <button @tap="navigateTo('login')"
+                    class="mtop50">用户登录</button>
         </view>
     </view>
 </template>

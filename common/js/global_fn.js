@@ -97,7 +97,7 @@ const ajax = option => {
                 if (option.showErrorMsg) {
                     setTimeout(() => {
                         uni.showToast({
-                            title: ret.msg || '接口访问异常!',
+                            title: ret.message || '接口访问异常!',
                             icon: 'none'
                         })
                     }, 100)

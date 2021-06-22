@@ -11,6 +11,12 @@
 			"style": {
 				"navigationBarTitleText": "账户注册"
 			}
+		},
+        {
+			"path": "pages/index/login",
+			"style": {
+				"navigationBarTitleText": "密码登录"
+			}
 		}
 	],
 	"globalStyle": {

@@ -2,7 +2,7 @@
     <view id="reg_tel">
         <view class="page-title-wrap">
             <view class="icon-logo">XF</view>
-            <view class="page-title">密码登录</view>
+            <view class="page-title">验证码登录</view>
         </view>
         <view class="k-cells reg-cells">
             <view class="k-cell">
@@ -19,32 +19,30 @@
                     <view class="icon icon-close"
                           v-if="phone"
                           @tap="phone=''"></view>
+                    <text class="yzm k-active"
+                          v-if="!timer_s"
+                          @tap="getYzm">获取验证码</text>
+                    <text class="yzm k-active"
+                          v-else>{{timer_s}}s后重新获取</text>
                 </view>
             </view>
             <view class="k-cell">
                 <view class="k-cell__bd">
-                    <input v-if="!password_show"
-                           type="password"
-                           placeholder="请输入密码"
-                           v-model.trim="password">
-                    <input v-else
-                           type="text"
-                           placeholder="请输入密码"
-                           v-model.trim="password">
+                    <input type="text"
+                           maxlength='4'
+                           placeholder="请输入短信验证码"
+                           v-model.trim="yzm">
                 </view>
                 <view class="k-cell__ft">
                     <view class="icon icon-close"
-                          v-if="password"
-                          @tap="password=''"></view>
-                    <view class="icon"
-                          :class="[password_show?'icon-eye-open':'icon-eye-close']"
-                          @tap="password_show=!password_show"></view>
+                          v-if="yzm"
+                          @tap="yzm=''"></view>
                 </view>
             </view>
         </view>
         <view class="reg_hint between">
             <view class="c000"
-                  @tap="$naviTo('login_sms')">验证码登录</view>
+                  @tap="$naviTo('login_sms')">密码登录</view>
             <view>忘记密码</view>
         </view>
         <view class="submit-wrap">
@@ -88,8 +86,12 @@
                 <view class="popup-btns">
                     <view class="k-btn info round popup-btn-cancel"
                           @tap="onPopupCancel">取消</view>
-                    <view class="k-btn primary round popup-btn-confirm"
-                          @tap="onPopupconfirm">确认</view>
+                    <view v-if="captchaType==='yzm'"
+                          class="k-btn primary round popup-btn-confirm"
+                          @tap="onPopupconfirm">确认获取</view>
+                    <view v-if="captchaType==='login'"
+                          class="k-btn primary round popup-btn-confirm"
+                          @tap="onPopupconfirm">确认登录</view>
                 </view>
             </view>
         </uni-popup>
@@ -98,12 +100,11 @@
 
 <script>
 import { validate } from '@/common/js/validate'
-import { _throttle } from '@/common/js/com'
+import { _throttle, countDown } from '@/common/js/com'
 export default {
     data () {
         return {
-            phone: '', // 18576754500
-            password: '', // Nihao222
+            phone: '', // 18576754500 17307970937
             yzm: '',
             re_password: '',
             timer: '',
@@ -112,6 +113,7 @@ export default {
             re_password_show: false,
             btnLock: false,
             apiLock: false,
+            captchaType: '', // yzm login 
             // popup
             captchaUrl: '',
             captcha_refresh: true,
@@ -124,6 +126,20 @@ export default {
         this.captchaUrl = this.$baseDomain + '/account/captcha'
     },
     methods: {
+        getYzm () {
+            var rules = [
+                [
+                    this.phone,
+                    [
+                        { required: true, message: '手机不能为空' },
+                        { type: 'phone', message: '请输入正确的手机格式' },
+                    ]
+                ],
+            ]
+            if (!validate(rules)) { return false };
+            this.captchaType = 'yzm'
+            this.$refs.popup.open()
+        },
         onSubmit: _throttle(function () {
             var rules = [
                 [
@@ -133,24 +149,72 @@ export default {
                         { type: 'phone', message: '请输入正确的手机格式' },
                     ]
                 ],
-                // [
-                //     this.yzm,
-                //     [
-                //         { required: true, message: '验证码不能为空' },
-                //         { min: 4, message: '请输入4位的验证码' },
-                //     ]
-                // ],
                 [
-                    this.password,
+                    this.yzm,
                     [
-                        { required: true, message: '密码不能为空' },
-                        { min: 4, message: '请输入6位以上的密码' },
+                        { required: true, message: '验证码不能为空' },
+                        { min: 4, message: '请输入4位的验证码' },
                     ]
                 ],
             ]
             if (!validate(rules)) { return false };
+            this.btnLock = true
+            this.captchaType = 'login'
             this.$refs.popup.open()
-        }, 2000, true),
+        }, 2000, true, function () {
+            this.btnLock = false
+        }),
+        handleLogin () {
+            this.apiLock = true
+            this.$ajax({
+                url: '/account/login',
+                params: {
+                    phone: this.phone,
+                    code: this.yzm,
+                    captcha: this.captcha,
+                    login_type: 2, // 1密码登录 2短信登录
+                }
+            }).then(res => {
+                if (res.code === 1) {
+                    uni.setStorageSync('token', res.data.token)
+                    uni.setStorageSync('uid', res.data.uid)
+                    uni.showModal({
+                        title: '温馨提示', content: '登录成功，确认返回首页', showCancel: false, success: (res) => {
+                            uni.redirectTo({ url: 'index' })
+                            this.onPopupCancel()
+                        }
+                    })
+                } else {
+                    uni.showModal({ title: '温馨提示', content: res.message, showCancel: false })
+                }
+            }).finally(() => {
+                this.apiLock = false
+            })
+        },
+        handleSendYzm () {
+            this.apiLock = true
+            this.$ajax({
+                url: '/account/sendcode',
+                showLoading: true,
+                params: {
+                    phone: this.phone,
+                    type: 1,
+                    captcha: this.captcha
+                }
+            }).then(res => {
+                if (res.code === 1) {
+                    countDown(() => {
+                        this.timer_s = ''
+                    }, this)
+                    this.onPopupCancel()
+                } else if (res.code === -1 && res.message === '图形验证码已过期,请重新获取.') {
+                    this.onCaptcha()
+                }
+                if (res.message) uni.showModal({ title: '温馨提示', content: res.message, showCancel: false })
+            }).finally(() => {
+                this.apiLock = false
+            })
+        },
         // popup
         captchaInput () {
             if (this.captcha.length >= 4) {
@@ -175,36 +239,9 @@ export default {
                 ],
             ]
             if (!validate(rules)) { return false };
-            this.btnLock = true
-            this.apiLock = true
-            this.$ajax({
-                url: '/account/login',
-                showLoading: true,
-                params: {
-                    phone: this.phone,
-                    password: this.password,
-                    captcha: this.captcha,
-                    login_type: 1, // 1密码登录 2短信登录
-                }
-            }).then(res => {
-                if (res.code === 1) {
-                    uni.setStorageSync('token', res.data.token)
-                    uni.setStorageSync('uid', res.data.uid)
-                    uni.showModal({
-                        title: '温馨提示', content: '登录成功，确认返回首页', showCancel: false, success: (res) => {
-                            uni.redirectTo({ url: 'index' })
-                            this.onPopupCancel()
-                        }
-                    })
-                } else {
-                    uni.showModal({ title: '温馨提示', content: res.message, showCancel: false })
-                }
-            }).finally(() => {
-                this.apiLock = false
-            })
-        }, 1000, true, function () {
-            this.btnLock = false
-        }),
+            if (this.captchaType === 'yzm') this.handleSendYzm()
+            if (this.captchaType === 'login') this.handleLogin()
+        }, 1000, true),
         onPopupCancel () {
             this.captcha = ''
             this.$refs.popup.close()
@@ -220,6 +257,12 @@ export default {
     width: 630rpx;
     .reg-cells {
         margin-top: 70rpx;
+        .captcha {
+            display: block;
+            margin-left: 10rpx;
+            width: 192rpx;
+            height: 74rpx;
+        }
     }
     .submit-wrap {
         margin-top: 100rpx;
@@ -231,12 +274,6 @@ export default {
         border-radius: 16rpx;
         box-sizing: border-box;
         background: #fff;
-        .captcha {
-            display: block;
-            margin-left: 10rpx;
-            width: 192rpx;
-            height: 74rpx;
-        }
         .popup-btns {
             display: flex;
             justify-content: space-around;

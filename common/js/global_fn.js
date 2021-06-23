@@ -117,4 +117,8 @@ const ajax = option => {
         })
     })
 }
+const naviTo = (url) => {
+    uni.navigateTo({ url: url })
+}
 Vue.prototype.$ajax = ajax;
+Vue.prototype.$naviTo = naviTo;

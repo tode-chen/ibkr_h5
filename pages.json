@@ -17,6 +17,12 @@
 			"style": {
 				"navigationBarTitleText": "密码登录"
 			}
+		},
+        {
+			"path": "pages/index/login_sms",
+			"style": {
+				"navigationBarTitleText": "验证码登录"
+			}
 		}
 	],
 	"globalStyle": {

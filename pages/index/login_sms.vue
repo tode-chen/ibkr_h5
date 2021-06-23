@@ -42,7 +42,7 @@
         </view>
         <view class="reg_hint between">
             <view class="c000"
-                  @tap="$naviTo('login_sms')">密码登录</view>
+                  @tap="$naviTo('login')">密码登录</view>
             <view>忘记密码</view>
         </view>
         <view class="submit-wrap">

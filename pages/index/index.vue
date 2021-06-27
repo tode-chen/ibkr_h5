@@ -10,6 +10,8 @@
                     class="mtop50">密码登录</button>
             <button @tap="navigateTo('login_sms')"
                     class="mtop50">验证码登录</button>
+            <button @tap="navigateTo('/pages/reg/index')"
+                    class="mtop50">账户开户</button>
         </view>
     </view>
 </template>

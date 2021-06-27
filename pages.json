@@ -23,6 +23,18 @@
 			"style": {
 				"navigationBarTitleText": "验证码登录"
 			}
+		},
+        {
+			"path": "pages/reg/index",
+			"style": {
+				"navigationBarTitleText": "准备开户"
+			}
+		},
+        {
+			"path": "pages/reg/1_id",
+			"style": {
+				"navigationBarTitleText": "身份验证"
+			}
 		}
 	],
 	"globalStyle": {

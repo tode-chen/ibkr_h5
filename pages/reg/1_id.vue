@@ -70,18 +70,24 @@
         <view class="fixedBtn">
             <view class="k-btn  info btn1">上一步</view>
             <view class="k-btn primary btn2"
+                  v-if="!btnLock&&!apiLock"
                   @tap="saveIdcard">确认，下一步</view>
+            <view v-else
+                  class="k-btn disabled btn2">操作中...</view>
         </view>
     </view>
 </template>
 
 <script>
-import { pathToBase64, base64ToPath } from '@/component/image-tools/index'
+import { pathToBase64 } from '@/component/image-tools/index'
+import { _throttle } from '@/common/js/com'
 export default {
     data () {
         return {
             idcard_front: '',
             idcard_reverse: '',
+            btnLock: false,
+            apiLock: false,
         }
     },
     methods: {
@@ -102,9 +108,11 @@ export default {
                 }
             });
         },
-        saveIdcard () {
+        saveIdcard: _throttle(function () {
             if (!this.idcard_front) return uni.showToast({ title: '请上传身份证正面!', icon: 'none' })
             if (!this.idcard_reverse) return uni.showToast({ title: '请上传身份证反面!', icon: 'none' })
+            this.btnLock = true
+            this.apiLock = true
             this.$ajax({
                 url: '/account/uploadIdentity',
                 needAuth: true,
@@ -117,8 +125,12 @@ export default {
                 }
             }).then(res => {
 
+            }).finally(() => {
+                this.apiLock = false
             })
-        }
+        }, 2000, true, function () {
+            this.btnLock = false
+        })
     }
 }
 </script>
@@ -126,7 +138,7 @@ export default {
 <style lang="scss" scoped>
 #reg-id {
     color: #333;
-    padding-bottom: 50rpx;
+    padding-bottom: 180rpx;
     .reg_process {
         display: flex;
         justify-content: flex-start;

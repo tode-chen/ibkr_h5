@@ -12,6 +12,10 @@
                     class="mtop50">验证码登录</button>
             <button @tap="navigateTo('/pages/reg/index')"
                     class="mtop50">账户开户</button>
+            <button @tap="navigateTo('/pages/reg/2_personal')"
+                    class="mtop50">个人基础信息</button>
+            <button @tap="navigateTo('/pages/reg/face')"
+                    class="mtop50">人脸识别</button>
         </view>
     </view>
 </template>

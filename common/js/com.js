@@ -17,7 +17,7 @@ export function countDown(callBack, that, interval = 60, timerName = 'timer', in
     }, 1000)
 }
 //防抖
-export function _debounce (fn, wait = 300, isImmediate = false) {
+export function _debounce(fn, wait = 300, isImmediate = false) {
     var timerId = null;
     var flag = true;
     return function () {
@@ -40,7 +40,7 @@ export function _debounce (fn, wait = 300, isImmediate = false) {
     }
 }
 // 节流
-export function _throttle (fn, wait = 300, isImmediate = false, callback) {
+export function _throttle(fn, wait = 300, isImmediate = false, callback) {
     var flag = true;
     return function () {
         if (flag == true) {
@@ -55,4 +55,28 @@ export function _throttle (fn, wait = 300, isImmediate = false, callback) {
             }, wait)
         }
     }
+}
+export function appendJScript(url) {
+    return new Promise((resovle, reject) => {
+        var script = document.createElement('script')
+        script.type = 'text/javascript';
+        if (script.readyState) {
+            script.onreadystatechange = function () {
+                if (script.readyState == 'loaded' || script.readyState == 'complete') {
+                    script.onreadystatechange = null;
+                    resovle('success');
+                }
+            };
+        } else {
+            //其他浏览器
+            script.onload = function () {
+                resovle('success');
+            };
+            script.onerror = function () {
+                reject('fail');
+            }
+        }
+        script.src = url;
+        document.getElementsByTagName('head')[0].appendChild(script);
+    })
 }

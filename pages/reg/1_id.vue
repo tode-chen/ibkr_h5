@@ -116,12 +116,13 @@ export default {
             this.$ajax({
                 url: '/account/uploadIdentity',
                 needAuth: true,
+                showLoading: true,
                 params: {
                     token: uni.getStorageSync('token'),
                 },
                 data: {
-                    face: this.idcard_front,
-                    back: this.idcard_reverse,
+                    face: this.idcard_front.replace(/^data:\S+\/\S+;base64,/, ''),
+                    back: this.idcard_reverse.replace(/^data:\S+\/\S+;base64,/, ''),
                 }
             }).then(res => {
 
@@ -139,18 +140,6 @@ export default {
 #reg-id {
     color: #333;
     padding-bottom: 180rpx;
-    .reg_process {
-        display: flex;
-        justify-content: flex-start;
-        width: 100%;
-        height: 20rpx;
-        background: #d4e1f5;
-        .reg_process_complete {
-            height: 20rpx;
-            background: #356cd3;
-        }
-        // icon-shield.png 60 110
-    }
     .reg-id_main {
         margin: 50rpx auto 0;
         width: 690rpx;
@@ -285,26 +274,6 @@ export default {
                     text-align: center;
                 }
             }
-        }
-    }
-    .fixedBtn {
-        position: fixed;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        z-index: 99;
-        display: flex;
-        justify-content: flex-start;
-        padding: 20rpx 20rpx 30rpx 20rpx;
-        box-sizing: border-box;
-        font-size: 32rpx;
-        background: #fff;
-        .btn2 {
-            padding: 0 30rpx;
-        }
-        .btn2 {
-            flex: 1;
-            margin-left: 20rpx;
         }
     }
 }

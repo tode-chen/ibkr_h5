@@ -26,6 +26,7 @@
     }
 }
 
+// reg 注册表样式
 .k-cells {
     &.reg-cells {
         .k-cell {
@@ -80,5 +81,86 @@
                 }
             }
         }
+    }
+}
+
+.reg_process {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    height: 20rpx;
+    background: #d4e1f5;
+
+    .reg_process_complete {
+        height: 20rpx;
+        background: #356cd3;
+    }
+
+    // icon-shield.png 60 110
+}
+
+.fixedBtn {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 99;
+    display: flex;
+    justify-content: flex-start;
+    padding: 20rpx 20rpx 30rpx 20rpx;
+    box-sizing: border-box;
+    font-size: 32rpx;
+    background: #fff;
+
+    .btn2 {
+        padding: 0 30rpx;
+    }
+
+    .btn2 {
+        flex: 1;
+        margin-left: 20rpx;
+    }
+}
+
+.reg-title2 {
+    font-size: 26rpx;
+    color: #000;
+}
+
+.reg-form-wrap {
+    width: 100%;
+    height: auto;
+    padding: 0 30rpx;
+    box-sizing: border-box;
+
+    .k-cells {
+        font-size: 30rpx;
+        .k-cell {
+            .k-label {
+                min-width: 220rpx;
+            }
+        }
+        .k-cell__ft {
+            width: initial;
+        }
+    }
+
+    .uni-input-placeholder {
+        color: #ccc;
+    }
+   
+
+    .form-hint {
+        padding: 20rpx 32rpx 0;
+        box-sizing: border-box;
+        font-size: 22rpx;
+        color: #999;
+    }
+    .form-hint2 {
+        padding: 20rpx 10rpx;
+        box-sizing: border-box;
+        font-size: 22rpx;
+        color: #999;
+        background: #fff7ed;
     }
 }

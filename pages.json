@@ -35,6 +35,18 @@
 			"style": {
 				"navigationBarTitleText": "身份验证"
 			}
+		},
+        {
+			"path": "pages/reg/2_personal",
+			"style": {
+				"navigationBarTitleText": "个人基础信息"
+			}
+		},
+        {
+			"path": "pages/reg/face",
+			"style": {
+				"navigationBarTitleText": "人脸识别"
+			}
 		}
 	],
 	"globalStyle": {

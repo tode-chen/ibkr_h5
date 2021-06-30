@@ -47,7 +47,7 @@
                                placeholder="请输入您的名的拼音">
                     </view>
                 </view>
-                <view class="form-hint">姓名拼音：为避免影响入金，需与银行卡登记姓名保持一致</view>
+                <view class="form-hint">请务必准确填写姓名拼音,否则或导致出入金失败影响交易</view>
                 <view class="k-cell">
                     <view class="k-cell__hd">
                         <label class="k-label">身份证号码</label>
@@ -101,7 +101,7 @@
                                placeholder="请输入您的邮箱">
                     </view>
                 </view>
-                <view class="form-hint2">邮箱将用来接收开户及交易相关通知等重要信息，请正确填写</view>
+                <view class="form-hint2">开户、出入金、交易通知会发送至此邮箱，请正确填写！</view>
             </view>
         </view>
         <view></view>
@@ -118,7 +118,7 @@
 
 <script>
 import { _throttle } from '@/common/js/com'
-import { validate } from '@/common/js/verify'
+import { validata } from '@/common/js/validata'
 export default {
     data () {
         return {
@@ -156,9 +156,20 @@ export default {
                 [this.idcard, [{ required: true, message: '请填写[身份证号码]' },]],
                 [this.birthday, [{ required: true, message: '请填写[出生日期]' },]],
                 [this.gender, [{ required: true, message: '请填写[性别]' },]],
-                [this.email, [{ required: true, message: '请填写[邮箱]' },]],
+                [
+                    this.email, [
+                        { required: true, message: '请填写[邮箱]' },
+                        { type: 'email', message: '请填写正确格式的[邮箱]' },
+                    ]
+                ],
             ]
-            if (!validate(rules)) { return false };
+            if (!validata(rules)) { return false };
+            uni.showModal({
+                title: '温馨提示', content: `邮箱用于接收开户、出入金、交易通知等重要信息，请务必再次确认邮箱是否正确：${this.email}`, success: (res) => {
+                    if (res.confirm) uni.navigateTo({ url: '/pages/kakouFrom/healthForm' })
+                }
+            })
+            // 邮箱用于接收开户、出入金、交易通知等重要信息，请务必再次确认邮箱是否正确：abcdefg@qq.com
         }, 1500, true, function () {
             this.btnLock = false
         })

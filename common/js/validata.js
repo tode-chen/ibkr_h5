@@ -1,4 +1,4 @@
-export function validate(rules) {
+export function validata(rules) {
     /**
      * @type = cnName, phone, idCard, idCardV2
      * 引入后的调用方法：
@@ -12,7 +12,7 @@ export function validate(rules) {
                 ]
             ]
         ]
-        if (!validate(rules)) { return false };
+        if (!validata(rules)) { return false };
      */
     for (let index = 0; index < rules.length; index++) {
         var data = rules[index][0]
@@ -49,11 +49,15 @@ export function validate(rules) {
                     return false;
                 }
             }
-
-
             if (row.type === "idCardV2") {
                 console.log('idCardV2', data);
                 if (!identityCardV2Valid(data)) {
+                    error();
+                    return false;
+                }
+            }
+            if (row.type === "email") {
+                if (!emailValid(data)) {
                     error();
                     return false;
                 }
@@ -63,7 +67,7 @@ export function validate(rules) {
     return true;
 
     function error(message) {
-        console.log("validate err msg：", message || row.message);
+        console.log("validata err msg：", message || row.message);
         uni.showModal({
             title: "温馨提示",
             content: message || row.message,
@@ -272,4 +276,13 @@ export function identityCardV2Valid(code) {
     if (tip) console.log('verify idcard tip:', tip);
     //if(!pass) alert(tip);
     return pass;
+}
+// 简单验证手机号
+export function emailValid (obj) {
+    var reg = /^[a-zA-Z0-9]+([-_.][a-zA-Z0-9]+)*@[a-zA-Z0-9]+([-_.][a-zA-Z0-9]+)*\.[a-z]{2,}$/
+    if (!reg.test(obj)) {
+        return false;
+    } else {
+        return true;
+    }
 }

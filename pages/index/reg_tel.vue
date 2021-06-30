@@ -131,7 +131,7 @@
 </template>
 
 <script>
-import { validate } from '@/common/js/validate'
+import { validata } from '@/common/js/validata'
 import { countDown, _throttle } from '@/common/js/com'
 export default {
     data () {
@@ -167,7 +167,7 @@ export default {
                     ]
                 ],
             ]
-            if (!validate(rules)) { return false };
+            if (!validata(rules)) { return false };
             this.$refs.popup.open()
         },
         onSubmit: _throttle(function () {
@@ -205,7 +205,7 @@ export default {
                 uni.showModal({ title: '温馨提示', content: '两次输入的密码不一致', showCancel: false })
                 return
             }
-            if (!validate(rules)) { return false };
+            if (!validata(rules)) { return false };
             this.btnLock = true
             this.$ajax({
                 url: '/account/register',
@@ -252,7 +252,7 @@ export default {
                     ]
                 ],
             ]
-            if (!validate(rules)) { return false };
+            if (!validata(rules)) { return false };
             this.$ajax({
                 url: '/account/sendcode',
                 showLoading: true,

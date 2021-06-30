@@ -97,7 +97,7 @@
 </template>
 
 <script>
-import { validate } from '@/common/js/validate'
+import { validata } from '@/common/js/validata'
 import { _throttle } from '@/common/js/com'
 export default {
     data () {
@@ -148,7 +148,7 @@ export default {
                     ]
                 ],
             ]
-            if (!validate(rules)) { return false };
+            if (!validata(rules)) { return false };
             this.$refs.popup.open()
         }, 2000, true),
         // popup
@@ -174,7 +174,7 @@ export default {
                     ]
                 ],
             ]
-            if (!validate(rules)) { return false };
+            if (!validata(rules)) { return false };
             this.btnLock = true
             this.apiLock = true
             this.$ajax({

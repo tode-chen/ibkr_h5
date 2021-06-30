@@ -14,6 +14,10 @@
                     class="mtop50">账户开户</button>
             <button @tap="navigateTo('/pages/reg/2_personal')"
                     class="mtop50">个人基础信息</button>
+            <button @tap="navigateTo('/pages/reg/3_addr_family')"
+                    class="mtop50">证件和家庭信息</button>
+            <button @tap="navigateTo('/pages/reg/4_occupation')"
+                    class="mtop50">职业信息</button>
             <button @tap="navigateTo('/pages/reg/face')"
                     class="mtop50">人脸识别</button>
         </view>
@@ -32,7 +36,9 @@ export default {
     },
     methods: {
         navigateTo (url) {
-            uni.navigateTo({ url: url })
+            uni.navigateTo({
+                url: url
+            })
         }
     }
 }
@@ -46,6 +52,7 @@ export default {
     font-weight: 600;
     text-align: center;
 }
+
 .button-wrap {
     margin: 300rpx auto 0;
     width: 600rpx;

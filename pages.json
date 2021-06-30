@@ -1,58 +1,70 @@
 {
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-		{
-			"path": "pages/index/index",
-			"style": {
-				"navigationBarTitleText": "首页"
-			}
-		},
+    "pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
         {
-			"path": "pages/index/reg_tel",
-			"style": {
-				"navigationBarTitleText": "账户注册"
-			}
-		},
+            "path": "pages/index/index",
+            "style": {
+                "navigationBarTitleText": "首页"
+            }
+        },
         {
-			"path": "pages/index/login",
-			"style": {
-				"navigationBarTitleText": "密码登录"
-			}
-		},
+            "path": "pages/index/reg_tel",
+            "style": {
+                "navigationBarTitleText": "账户注册"
+            }
+        },
         {
-			"path": "pages/index/login_sms",
-			"style": {
-				"navigationBarTitleText": "验证码登录"
-			}
-		},
+            "path": "pages/index/login",
+            "style": {
+                "navigationBarTitleText": "密码登录"
+            }
+        },
         {
-			"path": "pages/reg/index",
-			"style": {
-				"navigationBarTitleText": "准备开户"
-			}
-		},
+            "path": "pages/index/login_sms",
+            "style": {
+                "navigationBarTitleText": "验证码登录"
+            }
+        },
         {
-			"path": "pages/reg/1_id",
-			"style": {
-				"navigationBarTitleText": "身份验证"
-			}
-		},
+            "path": "pages/reg/index",
+            "style": {
+                "navigationBarTitleText": "准备开户"
+            }
+        },
         {
-			"path": "pages/reg/2_personal",
-			"style": {
-				"navigationBarTitleText": "个人基础信息"
-			}
-		},
+            "path": "pages/reg/1_id",
+            "style": {
+                "navigationBarTitleText": "证券开户"
+            }
+        },
         {
-			"path": "pages/reg/face",
-			"style": {
-				"navigationBarTitleText": "人脸识别"
-			}
-		}
-	],
-	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
-	}
+            "path": "pages/reg/2_personal",
+            "style": {
+                "navigationBarTitleText": "证券开户"
+            }
+        },
+        {
+            "path": "pages/reg/3_addr_family",
+            "style": {
+                "navigationBarTitleText": "证券开户"
+            }
+        },
+        {
+            "path": "pages/reg/4_occupation",
+            "style": {
+                "navigationBarTitleText": "证券开户"
+            }
+        },
+        {
+            "path": "pages/reg/face",
+            "style": {
+                "navigationBarTitleText": "人脸识别"
+            }
+        }
+    ],
+    "globalStyle": {
+        "navigationBarTextStyle": "black",
+        "navigationBarTitleText": "uni-app",
+        "navigationBarBackgroundColor": "#F8F8F8",
+        "backgroundColor": "#F8F8F8"
+    }
 }

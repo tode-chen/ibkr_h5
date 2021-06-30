@@ -99,7 +99,7 @@
 </template>
 
 <script>
-import { validate } from '@/common/js/validate'
+import { validata } from '@/common/js/validata'
 import { _throttle, countDown } from '@/common/js/com'
 export default {
     data () {
@@ -136,7 +136,7 @@ export default {
                     ]
                 ],
             ]
-            if (!validate(rules)) { return false };
+            if (!validata(rules)) { return false };
             this.captchaType = 'yzm'
             this.$refs.popup.open()
         },
@@ -157,7 +157,7 @@ export default {
                     ]
                 ],
             ]
-            if (!validate(rules)) { return false };
+            if (!validata(rules)) { return false };
             this.btnLock = true
             this.captchaType = 'login'
             this.$refs.popup.open()
@@ -238,7 +238,7 @@ export default {
                     ]
                 ],
             ]
-            if (!validate(rules)) { return false };
+            if (!validata(rules)) { return false };
             if (this.captchaType === 'yzm') this.handleSendYzm()
             if (this.captchaType === 'login') this.handleLogin()
         }, 1000, true),
